@@ -2,6 +2,7 @@ import MockMongo from '../../database/mockDatabase/mockMongoDB'
 import request from 'supertest'
 import { app } from '../../app'
 import User from '@entities/User'
+import RefreshToken from '@entities/RefreshToken'
 
 describe('Delete User', () => {
   beforeAll(async () => {
@@ -23,9 +24,11 @@ describe('Delete User', () => {
       .set('Authorization', `Bearer ${signInResponse.body.token}`)
 
     const user = await User.findOne({ email: signInResponse.body.user.email })
+    const refreshToken = await RefreshToken.findOne({ userId: signInResponse.body.user._id })
 
     expect(response.status).toBe(200)
     expect(user).toBe(null)
+    expect(refreshToken).toBe(null)
   })
 
   it('Should not delete a user without a token', async () => {
