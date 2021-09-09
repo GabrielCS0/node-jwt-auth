@@ -25,6 +25,7 @@ describe('Authentication', () => {
 
     expect(response.status).toBe(200)
     expect(response.body).toHaveProperty('token')
+    expect(response.body).toHaveProperty('refreshToken')
   })
 
   it('Should not be able to authenticate with a wrong password', async () => {

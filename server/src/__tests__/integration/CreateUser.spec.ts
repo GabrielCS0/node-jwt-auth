@@ -22,6 +22,7 @@ describe('Create User', () => {
     expect(response.body.user).toHaveProperty('_id')
     expect(response.body.user.password).toBe(undefined)
     expect(response.body).toHaveProperty('token')
+    expect(response.body).toHaveProperty('refreshToken')
   })
 
   it('Should not create a new user with the same email', async () => {

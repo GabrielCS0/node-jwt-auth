@@ -1,4 +1,4 @@
-import { Token } from '../../utils/Token'
+import { Token } from '../../providers/Token'
 
 describe('Token', () => {
   it('Should generate a Json Web Token', () => {

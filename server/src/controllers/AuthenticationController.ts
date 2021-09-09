@@ -8,12 +8,12 @@ export class AuthenticationController {
     const authenticationService = new AuthenticationService()
 
     try {
-      const token = await authenticationService.execute({
+      const { token, refreshToken } = await authenticationService.execute({
         email,
         password
       })
 
-      return res.json({ token })
+      return res.json({ token, refreshToken })
     } catch (err) {
       return res.status(400).json({ error: err.message })
     }

@@ -1,4 +1,4 @@
-import { HashPassword } from '../../utils/HashPassword'
+import { HashPassword } from '../../providers/HashPassword'
 
 describe('Hash Password', () => {
   it('Should encrypt the password', async () => {

@@ -8,13 +8,13 @@ export class UserController {
     const userService = new UserService()
 
     try {
-      const { user, token } = await userService.create({
+      const { user, token, refreshToken } = await userService.create({
         name,
         email,
         password
       })
 
-      return res.status(201).json({ user, token })
+      return res.status(201).json({ user, token, refreshToken })
     } catch (err) {
       return res.status(400).json({ error: err.message })
     }

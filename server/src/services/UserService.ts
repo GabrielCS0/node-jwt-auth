@@ -1,6 +1,8 @@
-import { HashPassword } from '../utils/HashPassword'
-import User from '../entities/User'
-import { Token } from '../utils/Token'
+import { HashPassword } from '../providers/HashPassword'
+import User, { UserDocument } from '@entities/User'
+import { Token } from '../providers/Token'
+import { RefreshAccessToken } from '../providers/RefreshAccessToken'
+import RefreshToken, { RefreshTokenDocument } from '@entities/RefreshToken'
 
 interface ICreateUser {
   name: string
@@ -8,8 +10,14 @@ interface ICreateUser {
   password: string
 }
 
+interface IPromise {
+  user: UserDocument,
+  token: string
+  refreshToken: RefreshTokenDocument
+}
+
 export class UserService {
-  async create ({ name, email, password }: ICreateUser) {
+  async create ({ name, email, password }: ICreateUser): Promise<IPromise> {
     const userAlreadyExists = await User.findOne({ email })
 
     if (userAlreadyExists) throw new Error('User already exists!')
@@ -26,8 +34,16 @@ export class UserService {
 
     user.password = undefined
 
-    const token = Token.generateToken(email, String(user._id))
+    const userId = String(user._id)
 
-    return { user, token }
+    const token = Token.generateToken(email, userId)
+
+    await RefreshToken.deleteMany({
+      userId
+    })
+
+    const refreshToken = await RefreshAccessToken.generate(userId)
+
+    return { user, token, refreshToken }
   }
 }
