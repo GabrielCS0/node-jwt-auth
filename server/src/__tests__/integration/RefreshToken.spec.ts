@@ -1,7 +1,6 @@
 import MockMongo from '../../database/mockDatabase/mockMongoDB'
 import request from 'supertest'
 import { app } from '../../app'
-import { RefreshAccessToken } from '../../providers/RefreshAccessToken'
 
 describe('Refresh Token', () => {
   beforeAll(async () => {
