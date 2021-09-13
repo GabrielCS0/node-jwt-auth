@@ -24,8 +24,6 @@
 
 This is an API with basic user authentication features such as sign up, sign in, logout and others.
 
-<br />
-
 <h1 align="center">
   <img alt="MongoDB Collections" style="border-radius:10px" src="./github/node-jwt-auth.jpg" />
 </h1>
